@@ -8,9 +8,7 @@ const db = mysql.createConnection(
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
   },
-  console.log(`Connected to the books_db database.`)
+  console.log(`Connected to the database.`)
 );
 
-db.query('SELECT * FROM departments', function (err, results) {
-  console.log(results);
-});
+module.exports = {db};
