@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
+const sequelize = require('./config/connection');
 
 let continue_app = true;
 
