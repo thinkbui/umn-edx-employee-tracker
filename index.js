@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql2');
+const db_connection = require("./utils/db_connection");
 
 let continue_app = true;
 
@@ -18,6 +18,7 @@ async function main() {
         if(response.main_action == "Exit") {
           console.log("Have a good day!");
           continue_app = false;
+          process.exit(0);
         } else {
           console.log("Continuing app...")
         }
