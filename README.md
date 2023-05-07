@@ -21,7 +21,9 @@ This is a very crude app that overly simplifies the human resources processes of
 
 I had hoped to wrap the code in the *main* function in a while loop so that the function is only executed once, but never got it to work quite right and, with the deadline of this study looming, was forced to settle for a recursive approach where the *main* function is passed as a parameter so that it's the last executed by other functions.
 
+The code is a little cluttered in that queries to the *departments* and *roles* tables live in *db/db_roles.js* and *db/db_employees.js* respectively.  Due to time constraints, this was not addressed during this study, but from a maintenance standpoint, those queries should be moved to the appropriate files so that *db/db_roles.js* only knows about the *roles* table and likewise for the other files and tables much like standard practices for ORMs such as Sequelize.
+
 ## DEMO
-You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=ljykjb5wqhM)
+You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=ljykjb5wqhM).
 
 ![Video](./assets/images/umn-edx-employee-tracker.gif)
