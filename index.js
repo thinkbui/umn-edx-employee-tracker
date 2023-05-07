@@ -11,7 +11,7 @@ function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Exit"]
+          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Exit"]
         }
       ])
       .then((response) => {
@@ -30,6 +30,9 @@ function main() {
             break;
           case "Add Role":
             db_roles.addRole(inquirer, main);
+            break;
+          case "Add Employee":
+            db_employees.addEmployee(inquirer, main);
             break;
           case "Exit":
             console.log("Have a good day!");

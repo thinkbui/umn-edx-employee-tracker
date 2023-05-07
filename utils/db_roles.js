@@ -18,7 +18,6 @@ function viewRoles(return_func) {
 }
 
 function addRole(inquirer, return_func) {
-  let parsed_results;
   db_connection.db.query("SELECT id, name FROM departments;", function (err, results) {
     dept_choices = results.map(function(itm) {return {key: itm.id, value: itm.name}})
     dept_decode = {}
