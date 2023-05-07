@@ -1,11 +1,10 @@
 const db_connection = require("./db_connection");
+const cTable = require('console.table');
 
 function viewDepartments(return_func) {
   db_connection.db.query('SELECT * FROM departments', function (err, results) {
-    let parsed_results = results.reduce((acc, {id, ...x}) => { acc[id] = x; return acc}, {})
-    console.log("\n");
-    console.table(parsed_results);
-    console.log("\n");
+    let parsed_results = cTable.getTable(results);
+    console.log(parsed_results);
     return_func();
   });
 }

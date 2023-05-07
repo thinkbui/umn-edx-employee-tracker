@@ -1,4 +1,5 @@
 const db_connection = require("./db_connection");
+const cTable = require('console.table');
 const combined_query = `SELECT roles.id AS id,
 roles.title AS title,
   departments.name AS department,
@@ -9,10 +10,8 @@ LEFT OUTER JOIN employee_db.departments AS departments ON roles.department_id = 
 
 function viewRoles(return_func) {
   db_connection.db.query(combined_query, function (err, results) {
-    let parsed_results = results.reduce((acc, {id, ...x}) => { acc[id] = x; return acc}, {})
-    console.log("\n");
-    console.table(parsed_results);
-    console.log("\n");
+    let parsed_results = cTable.getTable(results);
+    console.log(parsed_results);
     return_func();
   });
 }
