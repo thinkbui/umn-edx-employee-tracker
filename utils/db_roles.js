@@ -17,7 +17,7 @@ function viewRoles(return_func) {
   });
 }
 
-// This function creates a new role after prompting the user for the
+// This function adds a new role after prompting the user for the
 // information needed to create it
 function addRole(inquirer, return_func) {
   db_connection.db.query("SELECT id, name FROM departments;", function (err, results) {
