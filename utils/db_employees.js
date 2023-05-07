@@ -24,6 +24,7 @@ function viewEmployees(return_func) {
 
 // This function adds a new employee after prompting the user for the
 // information needed to create it
+// TODO: Move roles SELECT query to db_roles.js
 function addEmployee(inquirer, return_func) {
   db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
     mgr_choices = [{value:"(none)"}].concat(results.map(function(itm) {return {key: itm.id, value: itm.full_name}}))
@@ -76,6 +77,7 @@ function addEmployee(inquirer, return_func) {
 
 // This function updates the role of an employee after prompting the user
 // for the information needed for the update
+// TODO: Move roles SELECT query to db_roles.js
 function updateEmployeeRole(inquirer, return_func) {
   db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
     emp_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})

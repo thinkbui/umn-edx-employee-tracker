@@ -19,6 +19,7 @@ function viewRoles(return_func) {
 
 // This function adds a new role after prompting the user for the
 // information needed to create it
+// TODO: Move SELECT query code to db_departments.js
 function addRole(inquirer, return_func) {
   db_connection.db.query("SELECT id, name FROM departments;", function (err, results) {
     dept_choices = results.map(function(itm) {return {key: itm.id, value: itm.name}})
