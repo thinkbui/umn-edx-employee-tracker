@@ -1,3 +1,3 @@
 # umn-edx-employee-tracker
 
-![Video](./assets/videos/umn-edx-employee-tracker.mp4)
+![Video](./assets/images/umn-edx-employee-tracker.gif)
