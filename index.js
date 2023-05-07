@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const db_connection = require("./utils/db_connection");
 const db_departments = require("./utils/db_departments");
+const db_employees = require("./utils/db_employees");
 const db_roles = require("./utils/db_roles");
 
 let continue_app = true;
@@ -13,7 +14,7 @@ async function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "Exit"]
+          choices: ["View All Departments", "View All Roles", "View All Employees", "Exit"]
         }
       ])
       .then((response) => {
@@ -23,6 +24,9 @@ async function main() {
             break;
           case "View All Roles":
             db_roles.viewRoles();
+            break;
+          case "View All Employees":
+            db_employees.viewEmployees();
             break;
           case "Exit":
             console.log("Have a good day!");
