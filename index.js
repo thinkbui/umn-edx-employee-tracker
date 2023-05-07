@@ -16,7 +16,7 @@ async function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Exit"]
+          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Exit"]
         }
       ])
       .then((response) => {
@@ -32,6 +32,9 @@ async function main() {
             break;
           case "Add Department":
             db_departments.addDepartment(inquirer);
+            break;
+          case "Add Role":
+            db_roles.addRole(inquirer);
             break;
           case "Exit":
             console.log("Have a good day!");
