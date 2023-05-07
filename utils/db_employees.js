@@ -1,4 +1,5 @@
 const db_connection = require("./db_connection");
+const cTable = require('console.table');
 const combined_query = `SELECT employees.id AS id,
 employees.first_name AS first_name,
   employees.last_name AS last_name,
@@ -14,10 +15,8 @@ LEFT OUTER JOIN employee_db.employees AS managers ON employees.manager_id = mana
 
 function viewEmployees(return_func) {
   db_connection.db.query(combined_query, function (err, results) {
-    let parsed_results = results.reduce((acc, {id, ...x}) => { acc[id] = x; return acc}, {})
-    console.log("\n");
-    console.table(parsed_results);
-    console.log("\n");
+    let parsed_results = cTable.getTable(results);
+    console.log(parsed_results);
     return_func();
   });
 }
