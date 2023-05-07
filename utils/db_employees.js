@@ -7,10 +7,10 @@ roles.title AS title,
   departments.name AS department,
   roles.salary,
   CONCAT(COALESCE(managers.first_name, ''), " ", COALESCE(managers.last_name, '')) AS manager
-FROM employee_db.employees AS employees
-LEFT OUTER JOIN employee_db.roles AS roles ON employees.role_id = roles.id
-LEFT OUTER JOIN employee_db.departments AS departments ON roles.department_id = departments.id
-LEFT OUTER JOIN employee_db.employees AS managers ON employees.manager_id = managers.id;
+FROM employees
+LEFT OUTER JOIN roles ON employees.role_id = roles.id
+LEFT OUTER JOIN departments ON roles.department_id = departments.id
+LEFT OUTER JOIN employees AS managers ON employees.manager_id = managers.id;
 `;
 
 function viewEmployees(return_func) {
