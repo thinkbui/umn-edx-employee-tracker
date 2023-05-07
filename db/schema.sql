@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS employee_db;
+DROP DATABASE IF EXISTS umn_edx_employee_tracker_db;
 
-CREATE DATABASE employee_db;
+CREATE DATABASE umn_edx_employee_tracker_db;
 
-USE employee_db;
+USE umn_edx_employee_tracker_db;
 
 CREATE TABLE departments (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
