@@ -12,12 +12,13 @@ LEFT OUTER JOIN employee_db.departments AS departments ON roles.department_id = 
 LEFT OUTER JOIN employee_db.employees AS managers ON employees.manager_id = managers.id;
 `;
 
-function viewEmployees() {
+function viewEmployees(return_func) {
   db_connection.db.query(combined_query, function (err, results) {
     let parsed_results = results.reduce((acc, {id, ...x}) => { acc[id] = x; return acc}, {})
     console.log("\n");
     console.table(parsed_results);
     console.log("\n");
+    return_func();
   });
 }
 
