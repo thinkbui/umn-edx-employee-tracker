@@ -3,6 +3,26 @@ const db_connection = require("./utils/db_connection");
 const db_departments = require("./utils/db_departments");
 const db_employees = require("./utils/db_employees");
 const db_roles = require("./utils/db_roles");
+const logo = `
+___________              .__                              
+\\_   _____/ _____ ______ |  |   ____ ___.__. ____   ____  
+ |    __)_ /     \\\\____ \\|  |  /  _ <   |  |/ __ \\_/ __ \\ 
+ |        \\  Y Y  \\  |_> >  |_(  <_> )___  \\  ___/\\  ___/ 
+/_______  /__|_|  /   __/|____/\\____// ____|\\___  >\\___  >
+        \\/      \\/|__|               \\/         \\/     \\/ 
+___________                     __                        
+\\__    ___/___________    ____ |  | __ ___________        
+  |    |  \\_  __ \\__  \\ _/ ___\\|  |/ // __ \\_  __ \\       
+  |    |   |  | \\// __ \\\\  \\___|    <\\  ___/|  | \\/       
+  |____|   |__|  (____  /\___  >__|_ \\___  >__|          
+                      \\/     \\/     \\/    \\/              
+"Aio, quantitas magna frumentorum est"
+`;
+
+function init_app() {
+  console.log(logo);
+  main();
+}
 
 function main() {
     inquirer
@@ -49,4 +69,4 @@ function main() {
       })
 }
 
-main();
+init_app();
