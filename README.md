@@ -21,4 +21,7 @@ This is a very crude app that overly simplifies the human resources processes of
 
 I had hoped to wrap the code in the *main* function in a while loop so that the function is only executed once, but never got it to work quite right and, with the deadline of this study looming, was forced to settle for a recursive approach where the *main* function is passed as a parameter so that it's the last executed by other functions.
 
+## DEMO
+You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=ljykjb5wqhM)
+
 ![Video](./assets/images/umn-edx-employee-tracker.gif)
