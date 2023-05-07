@@ -19,11 +19,15 @@ ___________                     __
 "Aio, quantitas magna frumentorum est"
 `;
 
+// This function is what begins the app
 function init_app() {
   console.log(logo);
   main();
 }
 
+// This is the somewhat recursive function that contains the main prompt
+// It passes itself as a parameter to all functions it calls so that the
+// user is returned to the main prompt when those functions are complete.
 function main() {
     inquirer
       .prompt([
