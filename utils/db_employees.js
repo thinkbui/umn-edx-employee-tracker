@@ -23,7 +23,7 @@ function viewEmployees(return_func) {
 
 function addEmployee(inquirer, return_func) {
   db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
-    mgr_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
+    mgr_choices = [{value:"(none)"}].concat(results.map(function(itm) {return {key: itm.id, value: itm.full_name}}))
     mgr_decode = {}
     mgr_choices.forEach(element => {
       mgr_decode[element.value] = element.key;
