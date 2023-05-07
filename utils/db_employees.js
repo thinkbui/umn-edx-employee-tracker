@@ -72,4 +72,44 @@ function addEmployee(inquirer, return_func) {
   });
 }
 
-module.exports = {viewEmployees, addEmployee};
+function updateEmployeeRole(inquirer, return_func) {
+  db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
+    emp_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
+    emp_decode = {}
+    emp_choices.forEach(element => {
+      emp_decode[element.value] = element.key;
+    });
+    db_connection.db.query("SELECT id, title FROM roles;", function (err, results) {
+      role_choices = results.map(function(itm) {return {key: itm.id, value: itm.title}})
+      role_decode = {}
+      role_choices.forEach(element => {
+        role_decode[element.value] = element.key;
+      });
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              message: "Please the employee to update:",
+              name: "emp",
+              choices: emp_choices
+            },
+            {
+              type: "list",
+              message: "Please select the employee's new role:",
+              name: "role",
+              choices: role_choices
+            }
+          ])
+          .then((response) => {
+            db_connection.db.query(`UPDATE employees SET role_id = ? WHERE id = ?;`, [role_decode[response.role], emp_decode[response.emp]], (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+              return_func();
+            });
+          })
+    });
+  });
+}
+
+module.exports = {viewEmployees, addEmployee, updateEmployeeRole};
