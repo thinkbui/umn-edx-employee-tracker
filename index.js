@@ -7,14 +7,16 @@ const db_roles = require("./utils/db_roles");
 let continue_app = true;
 
 async function main() {
+// function main() {
   while(continue_app) {
     await inquirer
+    // inquirer
       .prompt([
         {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "View All Employees", "Exit"]
+          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Exit"]
         }
       ])
       .then((response) => {
@@ -27,6 +29,9 @@ async function main() {
             break;
           case "View All Employees":
             db_employees.viewEmployees();
+            break;
+          case "Add Department":
+            db_departments.addDepartment(inquirer);
             break;
           case "Exit":
             console.log("Have a good day!");

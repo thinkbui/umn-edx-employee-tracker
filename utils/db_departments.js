@@ -9,4 +9,23 @@ function viewDepartments() {
   });
 }
 
-module.exports = {viewDepartments};
+async function addDepartment(inquirer) {
+  await inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please enter the new department's name:",
+        name: "name"
+      }
+    ])
+    .then((response) => {
+      db_connection.db.query(`INSERT INTO departments (name) VALUES (?)`, response.name, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      });
+    })
+}
+
+module.exports = {viewDepartments, addDepartment};
