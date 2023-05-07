@@ -8,6 +8,7 @@ FROM roles
 LEFT OUTER JOIN departments ON roles.department_id = departments.id;
 `;
 
+// This function prints the list of all roles
 function viewRoles(return_func) {
   db_connection.db.query(combined_query, function (err, results) {
     let parsed_results = cTable.getTable(results);
@@ -16,6 +17,8 @@ function viewRoles(return_func) {
   });
 }
 
+// This function creates a new role after prompting the user for the
+// information needed to create it
 function addRole(inquirer, return_func) {
   db_connection.db.query("SELECT id, name FROM departments;", function (err, results) {
     dept_choices = results.map(function(itm) {return {key: itm.id, value: itm.name}})
