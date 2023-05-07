@@ -4,13 +4,8 @@ const db_departments = require("./utils/db_departments");
 const db_employees = require("./utils/db_employees");
 const db_roles = require("./utils/db_roles");
 
-let continue_app = true;
-
-async function main() {
-// function main() {
-  while(continue_app) {
-    await inquirer
-    // inquirer
+function main() {
+    inquirer
       .prompt([
         {
           type: "list",
@@ -22,19 +17,19 @@ async function main() {
       .then((response) => {
         switch(response.main_action) {
           case "View All Departments":
-            db_departments.viewDepartments();
+            db_departments.viewDepartments(main);
             break;
           case "View All Roles":
-            db_roles.viewRoles();
+            db_roles.viewRoles(main);
             break;
           case "View All Employees":
-            db_employees.viewEmployees();
+            db_employees.viewEmployees(main);
             break;
           case "Add Department":
-            db_departments.addDepartment(inquirer);
+            db_departments.addDepartment(inquirer, main);
             break;
           case "Add Role":
-            db_roles.addRole(inquirer);
+            db_roles.addRole(inquirer, main);
             break;
           case "Exit":
             console.log("Have a good day!");
@@ -43,9 +38,9 @@ async function main() {
             break;
           default:
             console.error("ERROR: Unknown input.  Please try again.");
+            main();
         }
       })
-  }
 }
 
 main();

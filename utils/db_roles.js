@@ -7,16 +7,17 @@ FROM employee_db.roles AS roles
 LEFT OUTER JOIN employee_db.departments AS departments ON roles.department_id = departments.id;
 `;
 
-function viewRoles() {
+function viewRoles(return_func) {
   db_connection.db.query(combined_query, function (err, results) {
     let parsed_results = results.reduce((acc, {id, ...x}) => { acc[id] = x; return acc}, {})
     console.log("\n");
     console.table(parsed_results);
     console.log("\n");
+    return_func();
   });
 }
 
-function addRole(inquirer) {
+function addRole(inquirer, return_func) {
   let parsed_results;
   db_connection.db.query("SELECT id, name FROM departments;", function (err, results) {
     dept_choices = results.map(function(itm) {return {key: itm.id, value: itm.name}})
@@ -48,7 +49,7 @@ function addRole(inquirer) {
           if (err) {
             console.log(err);
           }
-          console.log(result);
+          return_func();
         });
       })
     });
