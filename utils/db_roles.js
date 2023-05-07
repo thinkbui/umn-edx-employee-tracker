@@ -4,8 +4,8 @@ const combined_query = `SELECT roles.id AS id,
 roles.title AS title,
   departments.name AS department,
   roles.salary AS salary
-FROM employee_db.roles AS roles
-LEFT OUTER JOIN employee_db.departments AS departments ON roles.department_id = departments.id;
+FROM roles
+LEFT OUTER JOIN departments ON roles.department_id = departments.id;
 `;
 
 function viewRoles(return_func) {
