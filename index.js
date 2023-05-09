@@ -35,7 +35,7 @@ function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View Department Budgets", "View All Roles", "View All Employees", "View Employees By Manager", "View Employees By Department", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Update Employee Manager", "Delete Department", "Exit"]
+          choices: ["View All Departments", "View Department Budgets", "View All Roles", "View All Employees", "View Employees By Manager", "View Employees By Department", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Update Employee Manager", "Delete Department", "Delete Role", "Exit"]
         }
       ])
       .then((response) => {
@@ -75,6 +75,9 @@ function main() {
             break;
           case "Delete Department":
             db_departments.deleteDepartment(inquirer, main);
+            break;
+          case "Delete Role":
+            db_roles.deleteRole(inquirer, main);
             break;
           case "Exit":
             console.log("Have a good day!");
