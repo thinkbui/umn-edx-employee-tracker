@@ -118,4 +118,45 @@ function updateEmployeeRole(inquirer, return_func) {
   });
 }
 
-module.exports = {viewEmployees, addEmployee, updateEmployeeRole};
+// This function updates the manager of an employee after prompting the user
+// for the information needed for the update
+// TODO: Remove employee from list of potential managers
+function updateEmployeeManager(inquirer, return_func) {
+  db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
+    emp_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
+    emp_decode = {}
+    emp_choices.forEach(element => {
+      emp_decode[element.value] = element.key;
+    });
+    mgr_choices = [{value: "(none)"}].concat(emp_choices);
+    mgr_decode = {}
+    mgr_choices.forEach(element => {
+      mgr_decode[element.value] = element.key;
+    });
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please the employee to update:",
+          name: "emp",
+          choices: emp_choices
+        },
+        {
+          type: "list",
+          message: "Please select the employee's new manager:",
+          name: "mgr",
+          choices: mgr_choices
+        }
+      ])
+      .then((response) => {
+        db_connection.db.query(`UPDATE employees SET manager_id = ? WHERE id = ?;`, [mgr_decode[response.mgr], emp_decode[response.emp]], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          return_func();
+        });
+      })
+  });
+}
+
+module.exports = {viewEmployees, addEmployee, updateEmployeeRole, updateEmployeeManager};
