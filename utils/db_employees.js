@@ -82,7 +82,6 @@ function viewByDepartment(inquirer, return_func) {
         }
       ])
       .then((response) => {
-        console.log(response);
         viewEmployees(return_func, dept_decode[response.dept], "dept");
       })
   });

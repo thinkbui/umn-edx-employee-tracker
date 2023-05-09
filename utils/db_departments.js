@@ -51,4 +51,32 @@ async function addDepartment(inquirer, return_func) {
     })
 }
 
-module.exports = {viewDepartments, viewDepartmentBudgets, addDepartment};
+// This function prompts which department to delete then makes the SQL call
+function deleteDepartment(inquirer, return_func) {
+  db_connection.db.query('SELECT id, name FROM departments', function (err, results) {
+    dept_choices = results.map((element) => {return {key: element.id, value: element.name}})
+    dept_decode = {};
+    dept_choices.forEach((element) => {
+      dept_decode[element.value] = element.key;
+    })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please select a department:",
+          name: "dept",
+          choices: dept_choices
+        }
+      ])
+      .then((response) => {
+        db_connection.db.query(`DELETE FROM departments WHERE id = ?`, dept_decode[response.dept], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          return_func();
+        });
+      })
+  });
+}
+
+module.exports = {viewDepartments, viewDepartmentBudgets, addDepartment, deleteDepartment};
