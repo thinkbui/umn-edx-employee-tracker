@@ -25,7 +25,6 @@ function viewEmployees(return_func, mgr_id) {
     full_query += ` WHERE employees.manager_id = ${parseInt(mgr_id)}`
   }
   full_query += ';'
-  console.log(full_query);
   db_connection.db.query(full_query, function (err, results) {
     let parsed_results = cTable.getTable(results);
     console.log(parsed_results);
@@ -50,7 +49,6 @@ function viewByManager(inquirer, return_func) {
         }
       ])
       .then((response) => {
-        console.log(response);
         viewEmployees(return_func, mgr_decode[response.mgr]);
       })
   });
