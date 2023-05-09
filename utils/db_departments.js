@@ -1,6 +1,6 @@
 const db_connection = require("./db_connection");
 const cTable = require('console.table');
-const budget_query = `SELECT departments.name, IFNULL(budget_query.budget,0.00) AS budget
+const budget_query = `SELECT departments.name AS department, IFNULL(budget_query.budget,0.00) AS budget
 FROM umn_edx_employee_tracker_db.departments
   LEFT OUTER JOIN (
   SELECT departments.name, SUM(salary) AS budget
@@ -20,6 +20,8 @@ function viewDepartments(return_func) {
   });
 }
 
+// This function prints the combined salaries for each department
+// Displays "0.00" if the department has no employees
 function viewDepartmentBudgets(return_func) {
   db_connection.db.query(budget_query, function (err, results) {
     let parsed_results = cTable.getTable(results);
