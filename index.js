@@ -35,13 +35,16 @@ function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Exit"]
+          choices: ["View All Departments", "View Department Budgets", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Update Employee Manager", "Exit"]
         }
       ])
       .then((response) => {
         switch(response.main_action) {
           case "View All Departments":
             db_departments.viewDepartments(main);
+            break;
+          case "View Department Budgets":
+            db_departments.viewDepartmentBudgets(main);
             break;
           case "View All Roles":
             db_roles.viewRoles(main);
@@ -60,6 +63,9 @@ function main() {
             break;
           case "Update Employee Role":
             db_employees.updateEmployeeRole(inquirer, main);
+            break;
+          case "Update Employee Manager":
+            db_employees.updateEmployeeManager(inquirer, main);
             break;
           case "Exit":
             console.log("Have a good day!");
