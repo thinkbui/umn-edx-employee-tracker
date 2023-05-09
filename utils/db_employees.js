@@ -20,10 +20,15 @@ FROM employees AS managers
 
 // This function prints the list of all employees
 // If a manager id is provided, only employees with that manager are printed
-function viewEmployees(return_func, mgr_id) {
+// If a dept id is provided, only employees in that dept are printed
+function viewEmployees(return_func, id, type) {
   let full_query = combined_query;
-  if(mgr_id) {
-    full_query += ` WHERE employees.manager_id = ${parseInt(mgr_id)}`
+  if(id && type) {
+    if(type == "mgr"){
+      full_query += ` WHERE employees.manager_id = ${parseInt(id)}`
+    } else {
+      full_query += ` WHERE departments.id = ${parseInt(id)}`
+    }
   }
   full_query += ';'
   db_connection.db.query(full_query, function (err, results) {
@@ -52,7 +57,30 @@ function viewByManager(inquirer, return_func) {
         }
       ])
       .then((response) => {
-        viewEmployees(return_func, mgr_decode[response.mgr]);
+        viewEmployees(return_func, mgr_decode[response.mgr], "mgr");
+      })
+  });
+}
+
+function viewByDepartment(inquirer, return_func) {
+  db_connection.db.query('SELECT id, name FROM departments', function (err, results) {
+    dept_choices = results.map((element) => {return {key: element.id, value: element.name}})
+    dept_decode = {};
+    dept_choices.forEach((element) => {
+      dept_decode[element.value] = element.key;
+    })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please select a department:",
+          name: "dept",
+          choices: dept_choices
+        }
+      ])
+      .then((response) => {
+        console.log(response);
+        viewEmployees(return_func, dept_decode[response.dept], "dept");
       })
   });
 }
@@ -194,4 +222,4 @@ function updateEmployeeManager(inquirer, return_func) {
   });
 }
 
-module.exports = {viewEmployees, viewByManager, addEmployee, updateEmployeeRole, updateEmployeeManager};
+module.exports = {viewEmployees, viewByManager, viewByDepartment, addEmployee, updateEmployeeRole, updateEmployeeManager};
