@@ -23,6 +23,8 @@ I had hoped to wrap the code in the *main* function in a while loop so that the 
 
 The code is a little cluttered in that queries to the *departments* and *roles* tables live in *db/db_roles.js* and *db/db_employees.js* respectively.  Due to time constraints, this was not addressed during this study, but from a maintenance standpoint, those queries should be moved to the appropriate files so that *db/db_roles.js* only knows about the *roles* table and likewise for the other files and tables much like standard practices for ORMs such as Sequelize.
 
+This project also need tests.  In the interest of time, studying of mocking/stubbing and test databases was skipped and manual testing was conducted to validate functionality.  The jest package and others would be needed to build a thorough test suite that can be executed from the command line.
+
 ## DEMO
 You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=ljykjb5wqhM).
 
