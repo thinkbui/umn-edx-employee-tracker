@@ -35,7 +35,7 @@ function main() {
           type: "list",
           message: "Select from the following actions:",
           name: "main_action",
-          choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Update Employee Manager", "Exit"]
+          choices: ["View All Departments", "View Department Budgets", "View All Roles", "View All Employees", "View Employees By Manager", "Add Department", "Add Role", "Add Employee", "Update Employee Role", "Update Employee Manager", "Exit"]
         }
       ])
       .then((response) => {
@@ -43,11 +43,17 @@ function main() {
           case "View All Departments":
             db_departments.viewDepartments(main);
             break;
+          case "View Department Budgets":
+            db_departments.viewDepartmentBudgets(main);
+            break;
           case "View All Roles":
             db_roles.viewRoles(main);
             break;
           case "View All Employees":
             db_employees.viewEmployees(main);
+            break;
+          case "View Employees By Manager":
+            db_employees.viewByManager(inquirer, main);
             break;
           case "Add Department":
             db_departments.addDepartment(inquirer, main);

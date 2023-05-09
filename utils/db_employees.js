@@ -1,3 +1,4 @@
+const { default: inquirer } = require("inquirer");
 const db_connection = require("./db_connection");
 const cTable = require('console.table');
 const combined_query = `SELECT employees.id AS id,
@@ -10,15 +11,49 @@ roles.title AS title,
 FROM employees
 LEFT OUTER JOIN roles ON employees.role_id = roles.id
 LEFT OUTER JOIN departments ON roles.department_id = departments.id
-LEFT OUTER JOIN employees AS managers ON employees.manager_id = managers.id;
+LEFT OUTER JOIN employees AS managers ON employees.manager_id = managers.id
+`;
+const manager_query = `SELECT DISTINCT managers.id, CONCAT(managers.first_name, ' ', managers.last_name) AS full_name
+FROM employees AS managers
+  INNER JOIN employees ON managers.id = employees.manager_id;
 `;
 
 // This function prints the list of all employees
-function viewEmployees(return_func) {
-  db_connection.db.query(combined_query, function (err, results) {
+// If a manager id is provided, only employees with that manager are printed
+function viewEmployees(return_func, mgr_id) {
+  let full_query = combined_query;
+  if(mgr_id) {
+    full_query += ` WHERE employees.manager_id = ${parseInt(mgr_id)}`
+  }
+  full_query += ';'
+  db_connection.db.query(full_query, function (err, results) {
     let parsed_results = cTable.getTable(results);
     console.log(parsed_results);
     return_func();
+  });
+}
+
+// This function asks which manager whose subordinates to print
+// The main viewEmployees function is then called with the manager id
+function viewByManager(inquirer, return_func) {
+  db_connection.db.query(manager_query, function(err, results) {
+    mgr_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
+    mgr_decode = {}
+    mgr_choices.forEach(element => {
+      mgr_decode[element.value] = element.key;
+    });
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please select a manager:",
+          name: "mgr",
+          choices: mgr_choices
+        }
+      ])
+      .then((response) => {
+        viewEmployees(return_func, mgr_decode[response.mgr]);
+      })
   });
 }
 
@@ -159,4 +194,4 @@ function updateEmployeeManager(inquirer, return_func) {
   });
 }
 
-module.exports = {viewEmployees, addEmployee, updateEmployeeRole, updateEmployeeManager};
+module.exports = {viewEmployees, viewByManager, addEmployee, updateEmployeeRole, updateEmployeeManager};
