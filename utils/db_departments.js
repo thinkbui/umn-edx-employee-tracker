@@ -63,7 +63,7 @@ function deleteDepartment(inquirer, return_func) {
       .prompt([
         {
           type: "list",
-          message: "Please select a department:",
+          message: "Please select a department to delete:",
           name: "dept",
           choices: dept_choices
         }

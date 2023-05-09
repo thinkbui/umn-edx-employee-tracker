@@ -70,7 +70,7 @@ function deleteRole(inquirer, return_func) {
       .prompt([
         {
           type: "list",
-          message: "Please select a role:",
+          message: "Please select a role to delete:",
           name: "role",
           choices: role_choices
         }

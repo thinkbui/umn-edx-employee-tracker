@@ -236,7 +236,7 @@ function deleteEmployee(inquirer, return_func) {
       .prompt([
         {
           type: "list",
-          message: "Please select a employee:",
+          message: "Please select a employee to delete:",
           name: "emp",
           choices: emp_choices
         }
