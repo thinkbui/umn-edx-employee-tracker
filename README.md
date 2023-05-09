@@ -26,6 +26,6 @@ The code is a little cluttered in that queries to the *departments* and *roles* 
 This project also need tests.  In the interest of time, studying of mocking/stubbing and test databases was skipped and manual testing was conducted to validate functionality.  The jest package and others would be needed to build a thorough test suite that can be executed from the command line.
 
 ## DEMO
-You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=ljykjb5wqhM).
+You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=Fiol7n16OTk).
 
 ![Video](./assets/images/umn-edx-employee-tracker.gif)
