@@ -118,6 +118,9 @@ function updateEmployeeRole(inquirer, return_func) {
   });
 }
 
+// This function updates the manager of an employee after prompting the user
+// for the information needed for the update
+// TODO: Remove employee from list of potential managers
 function updateEmployeeManager(inquirer, return_func) {
   db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees;", function (err, results) {
     emp_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
