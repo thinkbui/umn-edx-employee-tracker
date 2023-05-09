@@ -19,6 +19,7 @@ FROM employees AS managers
 `;
 
 // This function prints the list of all employees
+// If a manager id is provided, only employees with that manager are printed
 function viewEmployees(return_func, mgr_id) {
   let full_query = combined_query;
   if(mgr_id) {
@@ -32,6 +33,8 @@ function viewEmployees(return_func, mgr_id) {
   });
 }
 
+// This function asks which manager whose subordinates to print
+// The main viewEmployees function is then called with the manager id
 function viewByManager(inquirer, return_func) {
   db_connection.db.query(manager_query, function(err, results) {
     mgr_choices = results.map(function(itm) {return {key: itm.id, value: itm.full_name}})
