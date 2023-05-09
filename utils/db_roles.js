@@ -58,4 +58,32 @@ function addRole(inquirer, return_func) {
 
 }
 
-module.exports = {viewRoles, addRole};
+// This function prompts which role to delete then makes the SQL call
+function deleteRole(inquirer, return_func) {
+  db_connection.db.query('SELECT id, title FROM roles', function (err, results) {
+    role_choices = results.map((element) => {return {key: element.id, value: element.title}})
+    role_decode = {};
+    role_choices.forEach((element) => {
+      role_decode[element.value] = element.key;
+    })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please select a role to delete:",
+          name: "role",
+          choices: role_choices
+        }
+      ])
+      .then((response) => {
+        db_connection.db.query(`DELETE FROM roles WHERE id = ?`, role_decode[response.role], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          return_func();
+        });
+      })
+  });
+}
+
+module.exports = {viewRoles, addRole, deleteRole};

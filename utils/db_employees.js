@@ -82,7 +82,6 @@ function viewByDepartment(inquirer, return_func) {
         }
       ])
       .then((response) => {
-        console.log(response);
         viewEmployees(return_func, dept_decode[response.dept], "dept");
       })
   });
@@ -225,4 +224,32 @@ function updateEmployeeManager(inquirer, return_func) {
   });
 }
 
-module.exports = {viewEmployees, viewByManager, viewByDepartment, addEmployee, updateEmployeeRole, updateEmployeeManager};
+// This function prompts which employee to delete then makes the SQL call
+function deleteEmployee(inquirer, return_func) {
+  db_connection.db.query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees", function (err, results) {
+    emp_choices = results.map((element) => {return {key: element.id, value: element.full_name}})
+    emp_decode = {};
+    emp_choices.forEach((element) => {
+      emp_decode[element.value] = element.key;
+    })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Please select a employee to delete:",
+          name: "emp",
+          choices: emp_choices
+        }
+      ])
+      .then((response) => {
+        db_connection.db.query(`DELETE FROM employees WHERE id = ?`, emp_decode[response.emp], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          return_func();
+        });
+      })
+  });
+}
+
+module.exports = {viewEmployees, viewByManager, viewByDepartment, addEmployee, updateEmployeeRole, updateEmployeeManager, deleteEmployee};
