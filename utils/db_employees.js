@@ -62,6 +62,9 @@ function viewByManager(inquirer, return_func) {
   });
 }
 
+// This function asks which department whose employees to print
+// The main viewEmployees function is then called with the dept id
+// TODO: Move the department logic to db_departments.js
 function viewByDepartment(inquirer, return_func) {
   db_connection.db.query('SELECT id, name FROM departments', function (err, results) {
     dept_choices = results.map((element) => {return {key: element.id, value: element.name}})
