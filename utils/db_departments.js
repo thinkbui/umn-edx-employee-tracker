@@ -1,12 +1,12 @@
 const db_connection = require("./db_connection");
 const cTable = require('console.table');
 const budget_query = `SELECT departments.name AS department, IFNULL(budget_query.budget,0.00) AS budget
-FROM umn_edx_employee_tracker_db.departments
+FROM departments
   LEFT OUTER JOIN (
   SELECT departments.name, SUM(salary) AS budget
-    FROM umn_edx_employee_tracker_db.employees AS employees
-          LEFT OUTER JOIN umn_edx_employee_tracker_db.roles AS roles on employees.role_id = roles.id
-          LEFT OUTER JOIN umn_edx_employee_tracker_db.departments AS departments ON roles.department_id = departments.id
+    FROM employees
+          LEFT OUTER JOIN roles on employees.role_id = roles.id
+          LEFT OUTER JOIN departments ON roles.department_id = departments.id
           GROUP BY departments.name
   ) AS budget_query ON departments.name = budget_query.name;
 `;
