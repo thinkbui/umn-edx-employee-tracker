@@ -29,3 +29,5 @@ This project also need tests.  In the interest of time, studying of mocking/stub
 You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=Fiol7n16OTk).
 
 ![Video](./assets/images/umn-edx-employee-tracker.gif)
+
+![Screenshot](https://i.ytimg.com/vi/Fiol7n16OTk/maxresdefault.jpg)
