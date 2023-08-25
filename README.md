@@ -30,4 +30,4 @@ You can view a demo of the app on [YouTube](https://www.youtube.com/watch?v=Fiol
 
 ![Video](./assets/images/umn-edx-employee-tracker.gif)
 
-![Screenshot](https://i.ytimg.com/vi/Fiol7n16OTk/maxresdefault.jpg)
+![Screenshot](./assets/images/maxresdefault.jpg)
